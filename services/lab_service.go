@@ -4,11 +4,11 @@ import (
 	"github.com/fitnis/lab-service/models"
 )
 
-var collectedSamples []models.Sample
+var samples []models.Sample
 var evaluations []models.SampleEvaluation
 
 func CollectSample(s models.Sample) models.GenericResponse {
-	collectedSamples = append(collectedSamples, s)
+	samples = append(samples, s)
 	return models.GenericResponse{Message: "Sample collected"}
 }
 

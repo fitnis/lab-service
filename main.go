@@ -10,10 +10,7 @@ func main() {
 
 	lab := router.Group("/lab")
 	{
-		lab.POST("/collectSample", handlers.CollectSample)
-		lab.POST("/recordSample", handlers.RecordSample)
-		lab.POST("/processSample", handlers.ProcessSample)
-		lab.POST("/evaluateSample", handlers.EvaluateSample)
+		handlers.RegisterLabRoutes(lab)
 	}
 
 	router.Run(":8085")

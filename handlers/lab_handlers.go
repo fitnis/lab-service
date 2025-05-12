@@ -8,42 +8,34 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// curl -X POST -H "Content-Type: application/json" -d '{"sampleId":"abc123","patientId":"123","type":"blood"}' http://localhost:8085/lab/collectSample
-func CollectSample(c *gin.Context) {
+func RegisterLabRoutes(rg *gin.RouterGroup) {
+	lab := rg.Group("/lab")
+	lab.POST("/collectSample", collect)
+	lab.POST("/recordSample", record)
+	lab.POST("/processSample", process)
+	lab.POST("/evaluateSample", evaluate)
+}
+
+func collect(c *gin.Context) {
 	var req models.Sample
-	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid sample"})
-		return
-	}
+	_ = c.ShouldBindJSON(&req)
 	c.JSON(http.StatusCreated, services.CollectSample(req))
 }
 
-// curl -X POST -H "Content-Type: application/json" -d '{"sampleId":"abc123","patientId":"123","type":"blood"}' http://localhost:8085/lab/recordSample
-func RecordSample(c *gin.Context) {
+func record(c *gin.Context) {
 	var req models.Sample
-	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid sample"})
-		return
-	}
+	_ = c.ShouldBindJSON(&req)
 	c.JSON(http.StatusCreated, services.RecordSample(req))
 }
 
-// curl -X POST -H "Content-Type: application/json" -d '{"sampleId":"abc123","patientId":"123","type":"blood"}' http://localhost:8085/lab/processSample
-func ProcessSample(c *gin.Context) {
+func process(c *gin.Context) {
 	var req models.Sample
-	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid sample"})
-		return
-	}
+	_ = c.ShouldBindJSON(&req)
 	c.JSON(http.StatusCreated, services.ProcessSample(req))
 }
 
-// curl -X POST -H "Content-Type: application/json" -d '{"sampleId":"abc123","result":"Normal"}' http://localhost:8085/lab/evaluateSample
-func EvaluateSample(c *gin.Context) {
+func evaluate(c *gin.Context) {
 	var req models.SampleEvaluation
-	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid evaluation"})
-		return
-	}
+	_ = c.ShouldBindJSON(&req)
 	c.JSON(http.StatusCreated, services.EvaluateSample(req))
 }
